@@ -27,7 +27,7 @@ var removeMenuItems = function(restaurant) {
 };
 
 
-exports.start = function(PORT, STATIC_DIR, DATA_FILE) {
+exports.start = function(PORT, STATIC_DIR, DATA_FILE, TEST_DIR) {
   var app = express();
   var storage = new MemoryStorage();
 
@@ -102,6 +102,10 @@ exports.start = function(PORT, STATIC_DIR, DATA_FILE) {
 
     return res.send(400, {error: 'No restaurant with id "' + req.params.id + '"!'});
   });
+
+
+  // only for running e2e tests
+  app.use('/test/', express.static(TEST_DIR));
 
 
   // start the server
